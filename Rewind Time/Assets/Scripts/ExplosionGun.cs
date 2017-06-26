@@ -6,25 +6,24 @@ public class ExplosionGun : MonoBehaviour {
 	public GameObject explosion;	// The explosion prefab
 	public Camera cam;              // Reference to the Player camera
 
-    private float recharge = 0;
+    public float cooldown =0;
     private TimeBody[] timeBList;
     public GameObject map;
+    private GameObject exp;
 
     private void Start()
     {
         timeBList = map.GetComponentsInChildren<TimeBody>();
     }
-
-
+    
     void Update ()
-	{
-		// If the player presses fire
-		if (Input.GetKeyDown(KeyCode.Space) && recharge <= 0)
+	{		
+		if (Input.GetKeyDown(KeyCode.Space) && cooldown < Time.time)
         {
 			Shoot();
+            cooldown = Time.time + 5;
             StartCoroutine(Rewind());
-        }
-            
+        }            
 	}
 
     IEnumerator Rewind()
@@ -40,11 +39,10 @@ public class ExplosionGun : MonoBehaviour {
 	{
         GetComponent<Rigidbody>().isKinematic = true;
 		RaycastHit _hitInfo;
-		// If we hit something
+	
 		if (Physics.Raycast(transform.position, transform.forward, out _hitInfo))
 		{
-			// Create an explosion at the impact point
-			Instantiate(explosion, _hitInfo.point, Quaternion.LookRotation(_hitInfo.normal));
+			exp = Instantiate(explosion, _hitInfo.point, Quaternion.LookRotation(_hitInfo.normal));
         }
         StartCoroutine(playerWait());
     }
@@ -53,6 +51,7 @@ public class ExplosionGun : MonoBehaviour {
     {
         yield return new  WaitForFixedUpdate();
         GetComponent<Rigidbody>().isKinematic = false;
+        Destroy(exp.gameObject);
     }
-   
+    
 }
