@@ -18,7 +18,7 @@ public class ExplosionGun : MonoBehaviour {
     
     void Update ()
 	{		
-		if (Input.GetKeyDown(KeyCode.Space) && cooldown < Time.time)
+		if (Input.GetButton("Fire1") && cooldown < Time.time)
         {
 			Shoot();
             cooldown = Time.time + 5;

@@ -20,11 +20,6 @@ public class TimeBody : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
 
     void FixedUpdate()
     {
@@ -47,7 +42,6 @@ public class TimeBody : MonoBehaviour
         {
             StopRewind();
         }
-
     }
 
     void Record()
@@ -56,7 +50,6 @@ public class TimeBody : MonoBehaviour
         {
             pointsInTime.RemoveAt(pointsInTime.Count - 1);
         }
-
         pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
     }
 

@@ -9,8 +9,8 @@ public class Guard : MonoBehaviour {
     [SerializeField] private Rigidbody Target;
     public NavMeshAgent nav;
 
-	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         FollowTarget();
     }
 
@@ -19,11 +19,8 @@ public class Guard : MonoBehaviour {
         float xPos = Target.transform.position.x;
         float zPos = Target.transform.position.z;
 
-
-       Vector3 TargetPos = new Vector3(xPos, transform.position.y, zPos);
-
+        Vector3 TargetPos = new Vector3(xPos, transform.position.y, zPos);
         nav.SetDestination(TargetPos);
-
     }
 
     public void NewTarget(Rigidbody player)
